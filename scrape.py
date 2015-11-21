@@ -6,33 +6,47 @@ import os
 import requests
 import sys
 
-def parse_price(str):
-    price = (str
-    .strip()
-    .replace(',', '')
-    .replace(u'\xa3', ''))
-
-    try:
-        return int(price)
-    except:
-        return None
-
-def parse_listing(listing):
+def price(listing):
     price_node = listing.find('a', class_='text-price')
     try:
         price = list(price_node.children)[2]
     except:
         price = price_node.get_text()
 
+    price = (
+        price
+        .strip()
+        .replace(',', '')
+        .replace(u'\xa3', '')
+    )
+
+    try:
+        return int(price)
+    except:
+        return None
+
+def beds(listing):
+    try:
+        return int(
+            listing
+            .find('span', class_='num-beds')
+            .get_text()
+            .strip()
+        )
+    except:
+        return None
+
+def parse_listing(listing):
     return {
         'listing_id' : int(listing.attrs['data-listing-id']),
-        'price'      : parse_price(price),
+        'price'      : price(listing),
         'latitude'   : listing
             .find('meta', itemprop='latitude')
             .attrs['content'],
         'longitude'  : listing
             .find('meta', itemprop='longitude')
-            .attrs['content']
+            .attrs['content'],
+        'beds' : beds(listing)
     }
 
 def parse_listings(listings):
