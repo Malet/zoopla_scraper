@@ -26,7 +26,13 @@ def parse_listing(listing):
 
     return {
         'listing_id' : int(listing.attrs['data-listing-id']),
-        'price'      : parse_price(price)
+        'price'      : parse_price(price),
+        'latitude'   : listing
+            .find('meta', itemprop='latitude')
+            .attrs['content'],
+        'longitude'  : listing
+            .find('meta', itemprop='longitude')
+            .attrs['content']
     }
 
 def parse_listings(listings):
