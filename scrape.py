@@ -52,7 +52,7 @@ url = urlunparse([
     ''
 ])
 
-soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+soup = BeautifulSoup(requests.get(url).content, 'html5lib')
 
 listings = parse_listings(
     soup.find_all('li', attrs={'data-listing-id': True})
