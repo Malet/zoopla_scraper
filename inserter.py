@@ -6,7 +6,7 @@ dumpJsonTableName = "zooplajsondump"
 
 # Me am SMART?
 def insertJsonDumpIntoPostgreSQL (jsonString):
-    sqlCommandString = "INSERT INTO " + dumpJsonTableName + "VALUES ( default," + json.dumps(jsonString) + ")"
+    sqlCommandString = "INSERT INTO " + dumpJsonTableName + " VALUES ( default," + json.dumps(jsonString) + ")"
     connectionHandler(sqlCommandString)
 
 def cleanDumpPostgreSQL() :
