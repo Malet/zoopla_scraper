@@ -2,12 +2,17 @@ import json
 import psycopg2
 import os
 
-def insertIntoPostgreSQL (jsonString) {
+dumpJsonTableName = "zooplajsondump"
 
+# Me am SMART?
+def insertJsonDumpIntoPostgreSQL (jsonString):
+    sqlCommandString = "INSERT INTO " + dumpJsonTableName + "VALUES ( default," + json.dumps(jsonString) + ")"
+    connectionHandler(sqlCommandString)
 
-}
+def cleanDumpPostgreSQL() :
+    return None
 
-def main() {
+def connectionHandler(sqlCommandString):
 
     con = None
 
@@ -15,19 +20,17 @@ def main() {
 
         con = psycopg2.connect(host='localhost',database='zooplatest', user='externalapi', password='test')
         cur = con.cursor()
-        cur.execute(insertIntoPostgreSQL(sys.argv[1]))
-        ver = cur.fetchone()
-        print ver
+        cur.execute(sqlCommandString)
 
-
-    except psycopg2.DatabaseError, e:
-        print 'Error %s' % e
+    except:
+        print(psycopg2.DatabaseError)
         sys.exit(1)
 
     finally:
 
         if con:
             con.close()
-}
 
-main
+list(map(print,os.sys.argv[1:]))
+    #sqlCommandString = insertDumpIntoPostgreSQL(jsonString)
+    #connectionHandler(sqlCommandString)
