@@ -6,6 +6,7 @@
 ## Getting started
 1. run `pip install -r requirements.txt` to install the dependencies.
 2. `python scrape.py` to start scraping data.
+3. run `bash postgreSQL.sh` to install postgreSQL server
 
 ## Mission
 The mission for this scraper is to overcome the restrictions of Zoopla's
