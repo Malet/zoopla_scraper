@@ -78,4 +78,4 @@ listings = parse_listings(
     soup.find_all('li', attrs={'data-listing-id': True})
 )
 
-list(map(print,listings))
+list(map(json.dumps,listings))
